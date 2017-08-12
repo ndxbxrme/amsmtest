@@ -1,0 +1,9 @@
+The party you selected is:
+<form>
+  Party name: <input type="text" ng-model="partyDetails.party.name" />
+  Url: <input type="text" ng-model="partyDetails.party.url" />
+  <button ng-click="partyDetails.play(partyDetails.party.url)">Play</button>
+  <button ng-click="partyDetails.stop()">Stop</button>
+</form>
+
+<button ui-sref="parties">Back</button>
