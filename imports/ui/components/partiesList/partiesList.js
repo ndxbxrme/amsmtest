@@ -4,8 +4,6 @@ import uiRouter from 'angular-ui-router';
 
 import template from './partiesList.html';
 import { Parties } from '../../../api/parties';
-import { name as PartyAdd } from '../partyAdd/partyAdd';
-import { name as PartyRemove } from '../partyRemove/partyRemove';
 
 class PartiesList {
   constructor($scope, $reactive) {
@@ -26,9 +24,7 @@ const name = 'partiesList';
 // create a module
 export default angular.module(name, [
   angularMeteor,
-  uiRouter,
-  PartyAdd,
-  PartyRemove
+  uiRouter
 ]).component(name, {
   template,
   controllerAs: name,

@@ -4,15 +4,18 @@ import uiRouter from 'angular-ui-router';
 
 import template from './partyDetails.html';
 import { Parties } from '../../../api/parties';
+import player from '../player/player.js';
 
 class PartyDetails {
-  constructor($stateParams, $scope, $reactive) {
+  constructor($stateParams, $scope, $reactive, player) {
     'ngInject';
 
     $reactive(this).attach($scope);
 
     this.partyId = $stateParams.partyId;
-    this.sound = null;
+    
+    this.play = player.play;
+    this.stop = player.stop;
 
     this.helpers({
       party() {
@@ -22,35 +25,6 @@ class PartyDetails {
       }
     });
   }
-
-  save() {
-    Parties.update({
-      _id: this.party._id
-    }, {
-      $set: {
-        name: this.party.name,
-        description: this.party.description
-      }
-    }, (error) => {
-      if (error) {
-        console.log('Oops, unable to update the party...');
-      } else {
-        console.log('Done!');
-      }
-    });
-  }
-  play(url) {
-    this.sound = soundManager.createSound({
-      id: url,
-      url: url
-    });
-    this.sound.play();
-  }
-  stop() {
-    if(this.sound) {
-      this.sound.stop(); 
-    }
-  }
 }
 
 const name = 'partyDetails';
@@ -58,7 +32,8 @@ const name = 'partyDetails';
 // create a module
 export default angular.module(name, [
   angularMeteor,
-  uiRouter
+  uiRouter,
+  'player'
 ]).component(name, {
   template,
   controllerAs: name,
